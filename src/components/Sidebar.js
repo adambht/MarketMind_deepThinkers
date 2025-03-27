@@ -5,7 +5,6 @@ import { FaChartLine, FaBullseye, FaUsers, FaRocket, FaUserCircle, FaVolumeUp, F
 function Sidebar() {
   const navigate = useNavigate();
 
-  // Navigation Items
   const menuItems = [
     { name: "Trend Analysis", icon: FaChartLine, route: "/dashboard" },
     { name: "Ad Performance", icon: FaBullseye, route: "/ad-performance" },
@@ -19,51 +18,73 @@ function Sidebar() {
   return React.createElement(
     "div",
     {
-      className: "fixed top-0 left-0 w-64 h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col p-4 shadow-lg overflow-y-auto",
+      className: "fixed top-0 left-0 w-72 h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col shadow-2xl overflow-hidden",
     },
-
-    // Logo
+    // Logo Section
     React.createElement(
       "div",
-      { className: "text-2xl font-bold text-purple-400 text-center mb-6 sticky top-0 bg-gradient-to-b from-gray-900 to-black py-2" },
-      "Nexai"
+      { 
+        className: "py-6 px-4 border-b border-gray-800 bg-gradient-to-b from-gray-900 to-black sticky top-0 z-10"
+      },
+      React.createElement(
+        "h1",
+        { className: "text-3xl font-bold text-purple-400 text-center" },
+        "Nexai"
+      )
     ),
 
-    // Buttons Container
+    // Main Navigation Container
     React.createElement(
       "div",
-      { className: "flex flex-col space-y-3 flex-grow" },
-
-      // "New Chat" Button
+      { className: "flex-1 px-4 py-6 space-y-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800" },
+      // New Chat Button
       React.createElement(
         "button",
         {
-          className:
-            "w-full flex items-center justify-center space-x-2 p-3 bg-gray-800 rounded-lg hover:bg-purple-600 transition-all duration-200",
+          className: "w-full flex items-center px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition-all duration-200 shadow-lg group",
           onClick: () => navigate("/new-chat"),
         },
-        React.createElement(FaRocket, { className: "text-white" }),
-        "Begin a New Chat"
+        React.createElement(FaRocket, { 
+          className: "text-white text-xl mr-4 group-hover:scale-110 transition-transform" 
+        }),
+        React.createElement(
+          "span",
+          { className: "font-semibold text-lg" },
+          "Begin a New Chat"
+        )
       ),
 
-      // Section Title
+      // Dashboard Section
       React.createElement(
-        "h2",
-        { className: "text-gray-400 text-sm mt-4 mb-2 uppercase" },
-        "Dashboard"
-      ),
-      // Navigation Buttons (Looping through menuItems)
-      ...menuItems.map((item) =>
+        "div",
+        { className: "space-y-4" },
         React.createElement(
-          "button",
-          {
-            key: item.name,
-            className:
-              "flex items-center space-x-2 p-3 bg-gray-800 rounded-lg hover:bg-purple-600 transition-all duration-200",
-            onClick: () => navigate(item.route),
-          },
-          React.createElement(item.icon, { className: "text-white" }),
-          item.name
+          "h2",
+          { className: "text-gray-400 text-xs font-semibold tracking-wider uppercase px-4" },
+          "Dashboard"
+        ),
+        // Navigation Items
+        React.createElement(
+          "div",
+          { className: "space-y-2" },
+          menuItems.map((item) =>
+            React.createElement(
+              "button",
+              {
+                key: item.name,
+                className: "w-full flex items-center px-4 py-3 rounded-lg hover:bg-gray-800/50 transition-all duration-200 group",
+                onClick: () => navigate(item.route),
+              },
+              React.createElement(item.icon, { 
+                className: "text-gray-400 text-xl mr-4 group-hover:text-purple-400 transition-colors" 
+              }),
+              React.createElement(
+                "span",
+                { className: "text-gray-300 group-hover:text-white transition-colors" },
+                item.name
+              )
+            )
+          )
         )
       )
     ),
@@ -72,12 +93,17 @@ function Sidebar() {
     React.createElement(
       "button",
       {
-        className:
-          "flex items-center justify-center space-x-2 p-3 bg-gray-800 rounded-lg hover:bg-purple-600 transition-all duration-200 mt-4 sticky bottom-4",
+        className: "flex items-center px-8 py-4 bg-gray-800/50 hover:bg-purple-600/50 transition-all duration-200 border-t border-gray-800",
         onClick: () => navigate("/profile"),
       },
-      React.createElement(FaUserCircle, { className: "text-white text-xl" }),
-      "User Profile"
+      React.createElement(FaUserCircle, { 
+        className: "text-gray-400 text-xl mr-4" 
+      }),
+      React.createElement(
+        "span",
+        { className: "font-medium" },
+        "User Profile"
+      )
     )
   );
 }
