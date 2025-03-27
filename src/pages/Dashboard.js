@@ -36,23 +36,44 @@ function TrendDashboard() {
 
   return React.createElement(
     "div",
-    { className: "flex h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-300" },
+    { className: "flex min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-300" },
+    // Fixed Sidebar
     React.createElement(Sidebar),
+    
+    // Main Content
     React.createElement(
       "div",
-      { className: "flex-1 p-8 overflow-auto" },
-      React.createElement("h1", { className: "text-white text-3xl font-bold mb-6" }, "Social Media Trend Analysis"),
-      React.createElement(
-        "button",
-        { 
-          className: "absolute top-4 right-4 bg-transparent text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-200",
-          onClick: () => navigate("/dashboard-2") 
-        },
-        "→"
-      ),
+      { 
+        className: "flex-1 ml-64 p-8 overflow-y-auto" // Added ml-64 for sidebar offset
+      },
+      // Header and Navigation
       React.createElement(
         "div",
-        { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
+        { className: "flex justify-between items-center mb-8" },
+        React.createElement(
+          "h1", 
+          { className: "text-white text-3xl font-bold" }, 
+          "Social Media Trend Analysis"
+        ),
+        React.createElement(
+          "button",
+          { 
+            className: "bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors shadow-lg flex items-center space-x-2",
+            onClick: () => navigate("/dashboard-2") 
+          },
+          "More Insights ",
+          React.createElement(
+            "span",
+            { className: "text-xl" },
+            "→"
+          )
+        )
+      ),
+      
+      // Charts Grid
+      React.createElement(
+        "div",
+        { className: "grid grid-cols-1 md:grid-cols-2 gap-8 pb-8" },
         React.createElement(
           "div",
           { className: "bg-gray-800 p-6 rounded-lg shadow-xl" },

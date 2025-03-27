@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaChartLine, FaBullseye, FaUsers, FaRocket, FaUserCircle,FaVolumeUp,FaImage,FaVideo } from "react-icons/fa";
+import { FaChartLine, FaBullseye, FaUsers, FaRocket, FaUserCircle, FaVolumeUp, FaImage, FaVideo } from "react-icons/fa";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -11,21 +11,21 @@ function Sidebar() {
     { name: "Ad Performance", icon: FaBullseye, route: "/ad-performance" },
     { name: "Audience Insights", icon: FaUsers, route: "/audience-insights" },
     { name: "Campaign Management", icon: FaRocket, route: "/campaigns" },
-    { name: "Audio Generation", icon:FaVolumeUp,route:"/audioGeneration" },
-    { name: "Image Generation", icon:FaImage,route:"/imageGeneration" },
-    { name: "Video Generation", icon:FaVideo,route:"/videoGeneration" },
+    { name: "Audio Generation", icon: FaVolumeUp, route: "/audioGeneration" },
+    { name: "Image Generation", icon: FaImage, route: "/imageGeneration" },
+    { name: "Video Generation", icon: FaVideo, route: "/videoGeneration" },
   ];
 
   return React.createElement(
     "div",
     {
-      className: "w-64 h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col p-4 shadow-lg",
+      className: "fixed top-0 left-0 w-64 h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col p-4 shadow-lg overflow-y-auto",
     },
 
     // Logo
     React.createElement(
       "div",
-      { className: "text-2xl font-bold text-purple-400 text-center mb-6" },
+      { className: "text-2xl font-bold text-purple-400 text-center mb-6 sticky top-0 bg-gradient-to-b from-gray-900 to-black py-2" },
       "Nexai"
     ),
 
@@ -68,12 +68,12 @@ function Sidebar() {
       )
     ),
 
-    // User Profile Button (Moved up slightly)
+    // User Profile Button
     React.createElement(
       "button",
       {
         className:
-          "flex items-center justify-center space-x-2 p-3 bg-gray-800 rounded-lg hover:bg-purple-600 transition-all duration-200 mt-4",
+          "flex items-center justify-center space-x-2 p-3 bg-gray-800 rounded-lg hover:bg-purple-600 transition-all duration-200 mt-4 sticky bottom-4",
         onClick: () => navigate("/profile"),
       },
       React.createElement(FaUserCircle, { className: "text-white text-xl" }),

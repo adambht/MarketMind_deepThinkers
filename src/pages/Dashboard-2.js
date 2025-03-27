@@ -46,18 +46,25 @@ function TrendDashboard2() {
 
   return React.createElement(
     "div",
-    { className: "flex h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-300" },
+    { className: "flex min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-300" },
+    // Sidebar
     React.createElement(Sidebar),
+    
+    // Main Content with proper margin and padding
     React.createElement(
       "div",
-      { className: "flex-1 p-8 overflow-auto" },
-      React.createElement("h1", { className: "text-white text-3xl font-bold mb-6" }, "Advanced Trend Analysis"),
-      React.createElement("button", { 
-        className: "absolute top-4 right-4 bg-transparent text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-200",
-        onClick: () => navigate("/dashboard") 
-      }, "←"),
+      { className: "flex-1 ml-64 p-6" }, // Added proper margin and padding
+      // Back Button
+      React.createElement(
+        "button",
+        { 
+          className: "mb-6 text-white hover:text-purple-400 text-2xl transition-colors",
+          onClick: () => navigate("/dashboard") 
+        }, 
+        "←"
+      ),
       
-      // Main Content
+      // Charts Grid
       React.createElement(
         "div",
         { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
