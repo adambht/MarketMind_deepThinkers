@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaChartLine, FaBullseye, FaUsers, FaRocket, FaUserCircle } from "react-icons/fa";
+import { FaChartLine, FaBullseye, FaUsers, FaRocket, FaUserCircle,FaVolumeUp,FaImage,FaVideo } from "react-icons/fa";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -11,6 +11,9 @@ function Sidebar() {
     { name: "Ad Performance", icon: FaBullseye, route: "/ad-performance" },
     { name: "Audience Insights", icon: FaUsers, route: "/audience-insights" },
     { name: "Campaign Management", icon: FaRocket, route: "/campaigns" },
+    { name: "Audio Generation", icon:FaVolumeUp,route:"/audioGeneration" },
+    { name: "Image Generation", icon:FaImage,route:"/imageGeneration" },
+    { name: "Video Generation", icon:FaVideo,route:"/videoGeneration" },
   ];
 
   return React.createElement(
@@ -49,7 +52,6 @@ function Sidebar() {
         { className: "text-gray-400 text-sm mt-4 mb-2 uppercase" },
         "Dashboard"
       ),
-
       // Navigation Buttons (Looping through menuItems)
       ...menuItems.map((item) =>
         React.createElement(

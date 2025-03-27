@@ -21,6 +21,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Dashboard2 from "./pages/Dashboard-2" 
+import AudioGeneration from "./pages/AudioGeneration"
 
 function App() {
   return (
@@ -29,9 +30,9 @@ function App() {
         {/* Redirect "/" to "/login" */}
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard-2" element={<Dashboard2 />} />
+        <Route path="/audioGeneration" element={<AudioGeneration />} />
 
       </Routes>
     </Router>
