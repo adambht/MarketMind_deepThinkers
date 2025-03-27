@@ -63,18 +63,18 @@ function AudioGeneration() {
                     className={`w-full px-6 py-4 rounded-xl transition-all transform hover:scale-105 ${
                       selectedModel === model
                         ? "bg-purple-600 text-white shadow-lg scale-105"
-                        : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
+                        : "bg-purple-100 text-purple-900 hover:bg-purple-200 shadow-md"
                     }`}
                     onClick={() => setSelectedModel(model)}
                   >
-                    {model}
+                    <span className="font-semibold text-lg">{model}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Parameters Section */}
-            <div className="p-8 border-b border-gray-200 bg-gray-50">
+            <div className="p-8 border-b border-purple-200 bg-purple-50">
               <label className="block text-gray-700 font-bold mb-8 text-center text-2xl">
                 Audio Parameters
               </label>
