@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ad Recommendation Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Ad Recommendation Generator</h1>
+    <form method="POST">
+      <textarea name="product" placeholder="Describe your product..." required></textarea>
+      <button type="submit">Generate Ad & Find Similar</button>
+    </form>
+
+    {% if generated_ad %}
+      <div class="result">
+        <h2>Generated Ad:</h2>
+        <p>{{ generated_ad }}</p>
+      </div>
+    {% endif %}
+
+    {% if similar_ads %}
+      <div class="result">
+        <h2>Top Similar Ads:</h2>
+        <div class="similar-ads">
+          {{ similar_ads | safe }}
+        </div>
+      </div>
+    {% else %}
+      {% if generated_ad %}
+        <div class="result">
+          <p>No similar ads found. Try adjusting the description!</p>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if suggested_questions %}
+    <div class="chat-container">
+      <h2>Assistant Chat</h2>
+
+      <div class="suggested-questions">
+        <strong>Suggested Questions:</strong><br>
+        {% for question in suggested_questions %}
+          <button onclick="sendSuggested('{{ question }}')">{{ question }}</button>
+        {% endfor %}
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        {% for user, assistant in chat_history %}
+          <div class="message user"><strong>You:</strong> {{ user }}</div>
+          <div class="message assistant"><strong>Assistant:</strong> {{ assistant }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="Ask something..." />
+        <button type="button" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("chat-input");
+      const message = input.value.trim();
+      if (!message) return;
+
+      fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `message=${encodeURIComponent(message)}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        const chatBox = document.getElementById("chat-messages");
+        chatBox.innerHTML += `<div class="message user"><strong>You:</strong> ${message}</div>`;
+        chatBox.innerHTML += `<div class="message assistant"><strong>Assistant:</strong> ${data.assistant_reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        input.value = "";
+      });
+    }
+
+    function sendSuggested(question) {
+      document.getElementById("chat-input").value = question;
+      sendMessage();
+    }
+  </script>
+</body>
+</html>
