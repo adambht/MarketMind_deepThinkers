@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pymongo
+transformers
+torch
+motor>=3.1.1
+
