@@ -1,4 +1,3 @@
-# nexai/src/models/ctr_model.py
 import joblib
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
@@ -15,8 +14,8 @@ def train_ctr_model(X_train, y_train):
     model_columns = X_train.columns.tolist()
     
     # Save the model after training
-    joblib.dump(model, 'nexai/src/models/machine_learning_models/ctr_model.pkl')
-    joblib.dump(model_columns,'nexai/src/models/machine_learning_models/model_columns.pkl') 
+    joblib.dump(model, 'src/models/machine_learning_models/ctr_model.pkl')
+    joblib.dump(model_columns,'src/models/machine_learning_models/model_columns.pkl') 
 # Save this list to a file
 # You can specify the path if needed
     

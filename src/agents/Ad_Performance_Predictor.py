@@ -22,7 +22,7 @@ def preprocess_ad_data(ad_data: pd.DataFrame) -> pd.DataFrame:
     
     categorical_features = ['Target_Audience', 'Campaign_Goal', 'Channel_Used', 'Language', 'Customer_Segment']
     for col in categorical_features:
-        le = joblib.load(f'nexai/src/models/machine_learning_models/encoders/{col}_encoder.pkl')
+        le = joblib.load(f'src/models/machine_learning_models/encoders/{col}_encoder.pkl')
         ad_data[col] = le.transform(ad_data[col])
         
     
@@ -34,12 +34,12 @@ def preprocess_ad_data(ad_data: pd.DataFrame) -> pd.DataFrame:
         'Duration'
     ]
     
-    scaler = joblib.load("nexai/src/models/machine_learning_models/encoders/numerical_scaler.pkl")
+    scaler = joblib.load("src/models/machine_learning_models/encoders/numerical_scaler.pkl")
     ad_data[numerical_features] = scaler.transform(ad_data[numerical_features])
 
 
     # 2. Load the saved model columns (i.e., the expected order of columns from the model)
-    model_columns = joblib.load('nexai/src/models/machine_learning_models/model_columns.pkl')  # Assuming the columns were saved during training
+    model_columns = joblib.load('src/models/machine_learning_models/model_columns.pkl')  # Assuming the columns were saved during training
 
     # 3. Reorder the input columns to match the model's expected order
     # Ensure all columns in model_columns are present, adding missing ones as needed
@@ -131,7 +131,7 @@ def predict_ctr_from_description(product_desc: str) -> Union[float, None]:
         processed_input = processed_input.drop(columns=['CTR'], errors='ignore')  # Safely drop if 'CTR' exists
 
         # Step 4: Load the trained model
-        model = joblib.load('nexai/src/models/machine_learning_models/ctr_model.pkl')
+        model = joblib.load('src/models/machine_learning_models/ctr_model.pkl')
 
         # Step 5: Predict CTR
         predicted_ctr = model.predict(processed_input)[0]

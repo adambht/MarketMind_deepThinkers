@@ -1,51 +1,47 @@
-# nexai/src/utils/data_preprocessing.py
 import pandas as pd
 import numpy as np
-from typing import Dict, List
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
+
+import joblib
+
 
 def preprocess_ad_data(ad_data: pd.DataFrame) -> pd.DataFrame:
     """
-    Preprocess the ad data
-    
-    Args:
-        ad_data(pd.DataFrame): Raw ad data
-    
-    Returns:
-        pd.DataFrame: Preprocessed ad data
+    Preprocess the ad data using label encoding for testing purposes.
     """
-    # Handle missing values 
-    
-    #Drop unnecessary features
-    columns_to_drop = [
-    "Campaign_ID", "Acquisition_Cost", "ROI",
-    "Location", "Date", "Company",
-    ] 
-    ad_data = ad_data.drop(columns=columns_to_drop)
-    
-    #make target feature
+    # Make target feature
     ad_data['CTR'] = ad_data['Clicks'] / ad_data['Impressions']
-    
-    #Convert Duration to integer
+    ad_data = ad_data.drop(columns=['Clicks', 'Impressions'])
+
+    # Drop unnecessary columns if they exist
+    columns_to_drop = ["Campaign_ID", "Acquisition_Cost", "ROI", "Location", "Date", "Company"]
+    ad_data = ad_data.drop(columns=[col for col in columns_to_drop if col in ad_data.columns])
+
+    # Convert Duration to integer
     ad_data['Duration'] = ad_data['Duration'].str.replace(' Days', '').astype(int)
 
     # Normalize numerical features
-    numerical_features = [
-        'Conversion_Rate', 
-        'Clicks', 
-        'Impressions', 
-        'Engagement_Score', 
-        'CTR',
-        'Duration'
-    ]
+    numerical_features = ['Conversion_Rate', 'Engagement_Score', 'Duration']
+    # Initialize and fit the scaler on all numerical features
+    scaler = StandardScaler()
+    ad_data[numerical_features] = scaler.fit_transform(ad_data[numerical_features])
+     # Save the scaler
+    joblib.dump(scaler, "src/models/machine_learning_models/encoders/numerical_scaler.pkl")
+
+
     
-    for feature in numerical_features:
-        ad_data[feature] = (ad_data[feature] - ad_data[feature].mean()) / ad_data[feature].std()
-    
-    # Encode categorical features
-    categorical_features = ['Target_Audience', 'Campaign_Goal', 'Channel_Used','Language','Customer_Segment']
-    ad_data = pd.get_dummies(ad_data, columns=categorical_features)
-    
-    return ad_data 
+        
+
+    # Encode categorical features (inline, no persistence)
+    categorical_features = ['Target_Audience', 'Campaign_Goal', 'Channel_Used', 'Language', 'Customer_Segment']
+    encoders = {}
+    for col in categorical_features:
+        le = LabelEncoder()
+        ad_data[col] = le.fit_transform(ad_data[col])
+        encoders[col] = le
+        joblib.dump(le, f"src/models/machine_learning_models/encoders/{col}_encoder.pkl")
+    return ad_data
 
 
 def split_ad_data(data: pd.DataFrame, test_size: float = 0.2):
