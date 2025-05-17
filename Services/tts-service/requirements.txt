@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+torch
+transformers
+soundfile
+numpy
+torchaudio
+sentencepiece
+scipy
+numpy
+motor==3.3.1
+pymongo==4.5.0
