@@ -1,7 +1,7 @@
 from openai import OpenAI
 import json
 import re
-import secret.py as secret
+import secret
 
 client = OpenAI(api_key=secret.api_key)
 
