@@ -27,3 +27,6 @@ secret.py
 
 #pycache
 __pycache__
+
+*.pkl
+

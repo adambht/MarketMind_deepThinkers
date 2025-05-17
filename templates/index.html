@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Ad Recommendation Generator</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+<link rel="stylesheet" href="{{ request.url_for('static', path='style.css') }}" />
 </head>
 <body>
   <div class="container">
@@ -17,8 +17,17 @@
       <div class="result">
         <h2>Generated Ad:</h2>
         <p>{{ generated_ad }}</p>
+        <!-- NEW BUTTON TO TRIGGER CTR PREDICTION -->
+        <button type="button" onclick="predictCTR()">Predict Performance</button>
       </div>
     {% endif %}
+
+    <!-- NEW SECTION: CTR Result -->
+    <div id="ctr-result" class="result" style="display: none;">
+      <h2>CTR Prediction</h2>
+      <p><strong>Predicted CTR:</strong> <span id="ctr-value"></span></p>
+      <p><strong>LLM Evaluation:</strong> <span id="ctr-eval"></span></p>
+    </div>
 
     {% if similar_ads %}
       <div class="result">
@@ -36,28 +45,28 @@
     {% endif %}
 
     {% if suggested_questions %}
-    <div class="chat-container">
-      <h2>Assistant Chat</h2>
+      <div class="chat-container">
+        <h2>Assistant Chat</h2>
 
-      <div class="suggested-questions">
-        <strong>Suggested Questions:</strong><br>
-        {% for question in suggested_questions %}
-          <button onclick="sendSuggested('{{ question }}')">{{ question }}</button>
-        {% endfor %}
-      </div>
+        <div class="suggested-questions">
+          <strong>Suggested Questions:</strong><br>
+          {% for question in suggested_questions %}
+            <button onclick="sendSuggested('{{ question }}')">{{ question }}</button>
+          {% endfor %}
+        </div>
 
-      <div class="chat-messages" id="chat-messages">
-        {% for user, assistant in chat_history %}
-          <div class="message user"><strong>You:</strong> {{ user }}</div>
-          <div class="message assistant"><strong>Assistant:</strong> {{ assistant }}</div>
-        {% endfor %}
-      </div>
+        <div class="chat-messages" id="chat-messages">
+          {% for user, assistant in chat_history %}
+            <div class="message user"><strong>You:</strong> {{ user }}</div>
+            <div class="message assistant"><strong>Assistant:</strong> {{ assistant }}</div>
+          {% endfor %}
+        </div>
 
-      <div class="chat-input">
-        <input type="text" id="chat-input" placeholder="Ask something..." />
-        <button type="button" onclick="sendMessage()">Send</button>
+        <div class="chat-input">
+          <input type="text" id="chat-input" placeholder="Ask something..." />
+          <button type="button" onclick="sendMessage()">Send</button>
+        </div>
       </div>
-    </div>
     {% endif %}
   </div>
 
@@ -88,6 +97,36 @@
       document.getElementById("chat-input").value = question;
       sendMessage();
     }
+
+    // NEW FUNCTION: Fetch predicted CTR from /predict_ctr endpoint
+    function predictCTR() {
+  const description = document.querySelector(".result p").innerText.trim();
+  if (!description) return;
+
+  fetch("/predict_ctr", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `product=${encodeURIComponent(description)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.error) {
+      alert("Prediction failed: " + data.error);
+      return;
+    }
+
+    document.getElementById("ctr-value").innerText = `${data.ctr.toFixed(2)}%`;
+    document.getElementById("ctr-eval").innerText = data.evaluation;
+    document.getElementById("ctr-result").style.display = "block";
+  })
+  .catch(err => {
+    alert("An error occurred while predicting performance.");
+    console.error(err);
+  });
+}
+
   </script>
 </body>
 </html>
