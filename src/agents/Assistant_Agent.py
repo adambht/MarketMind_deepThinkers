@@ -1,6 +1,6 @@
 
 from openai import OpenAI
-import secret.py as secret
+import secret 
 
 
 # Create a dedicated agent for the chat assistant
