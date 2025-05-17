@@ -24,3 +24,6 @@ yarn-error.log*
 
 #api
 secret.py
+
+#pycache
+__pycache__
