@@ -5,6 +5,13 @@ MarketMind transforms how businesses understand customers, create content, and d
 
 ---
 
+## 🏫 Academic Context
+
+This project was developed as part of the Data Science curriculum at **Esprit School of Engineering**. It showcases a full-stack AI-powered platform leveraging modern techniques in machine learning, NLP, and generative AI.  
+Our goal was to build a solution that redefines digital marketing with intelligent content generation and data-driven insights.
+
+---
+
 ## 🌟 Key Features
 
 - **💬 Sentiment Analysis**  
@@ -48,6 +55,14 @@ MarketMind transforms how businesses understand customers, create content, and d
 - Fine-tuned **Large Language Models (LLMs)**
 - **Generative AI** for text, images, audio, and video
 - **Recommendation Systems**
+- **Sentiment Analysis**
+- **FastAPI** for service orchestration
+- **Docker** for containerization and deployment
 - **Cloud-Ready Deployment** ☁️
 
 ---
+
+## 📦 Deployment
+
+Our services are containerized and deployed using **Docker**.  
+Each service (text generation, audio generation, etc.) is exposed via **FastAPI** endpoints and can be tested independently or integrated into the full system.
