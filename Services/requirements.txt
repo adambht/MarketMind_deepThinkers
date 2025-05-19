@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+tweepy
+praw
+google-api-python-client
+joblib
+scikit-learn
+pandas
+nltk
+transformers
+googletrans==3.1.0a0
+torch  # Specify a version that works with your system
+tensorflow
+python-dotenv
+google_trans_new
+wordcloud
+matplotlib
+seaborn
+tf-keras>=2.12.0
