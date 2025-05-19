@@ -7,8 +7,8 @@ MarketMind transforms how businesses understand customers, create content, and d
 
 ## 🏫 Academic Context
 
-This project was developed as part of the Data Science curriculum at **Esprit School of Engineering**. It showcases a full-stack AI-powered platform leveraging modern techniques in machine learning, NLP, and generative AI.  
-Our goal was to build a solution that redefines digital marketing with intelligent content generation and data-driven insights.
+This project was developed as part of the Data Science project **PIDS** at **Esprit School of Engineering**. It showcases a full-stack AI-powered platform leveraging modern techniques in deep learning, machine learning, LLMs fine-tuning...  
+Our goal was to build a solution that redefines digital marketing with intelligent and personalized content generation and data-driven insights.
 
 ---
 
