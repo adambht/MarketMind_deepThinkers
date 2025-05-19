@@ -1,15 +1,22 @@
-# text-service/Dockerfile
 FROM python:3.10-slim
 
+# Set work directory
 WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app and model
-COPY app ./app
-COPY model ./model
+# Copy app code
+COPY . .
 
-# Expose FastAPI on port 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Set environment variables to avoid interactive prompts
+ENV PYTHONUNBUFFERED=1 \
+    TRANSFORMERS_NO_ADVISORY_WARNINGS=1 \
+    HF_HOME=/app/.cache/huggingface
+
+# Expose the port FastAPI will run on
+EXPOSE 8000
+
+# Run the FastAPI server
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
