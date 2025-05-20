@@ -1,0 +1,159 @@
+/* SentimentAnalysisForm.css */
+
+/* Main wrapper to handle sidebar layout */
+.sentiment-analysis-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px); /* Adjust based on your header height */
+  padding: 20px;
+  margin-left: 250px; /* Adjust this to match your sidebar width */
+  transition: margin-left 0.3s;
+}
+
+/* If you have a collapsible sidebar, add this */
+.sidebar-collapsed .sentiment-analysis-wrapper {
+  margin-left: 80px; /* Adjust for collapsed sidebar width */
+}
+
+/* Main container styling */
+.sentiment-analysis-container {
+  width: 100%;
+  max-width: 800;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.analysis-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.analysis-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input, .form-select {
+  padding: 12px 15px;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-input::placeholder {
+  color: #b2bec3;
+}
+
+.submit-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #2980b9;
+}
+
+.submit-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #e74c3c;
+  background-color: #fadbd8;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.result-container {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-container h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-label {
+  font-weight: 600;
+  color: #34495e;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.sentiment-positive {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.sentiment-negative {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.sentiment-neutral {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sentiment-analysis-wrapper {
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+  
+  .sentiment-analysis-container {
+    padding: 20px;
+  }
+}
